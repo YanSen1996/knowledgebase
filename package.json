@@ -1,8 +1,44 @@
 {
+  "name": "knowledgebase",
+  "version": "1.0.0",
+  "description": "a knowledge base app for practice",
+  "main": "index.js",
+  "scripts": {
+    "dev": "babel-node index.js",
+    "lint": "eslint --fix-dry-run .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YanSen1996/knowledgebase.git"
+  },
+  "keywords": [
+    "knowledgebase"
+  ],
   "dependencies": {
-    "eslint": "^7.29.0",
+    "@koa/router": "^10.0.0",
+    "debug": "^4.3.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-logger": "^3.2.1",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/eslint-parser": "^7.14.7",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.7",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.2"
   }
 }
