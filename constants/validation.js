@@ -13,7 +13,7 @@ const topic = Joi.string().min(1).max(128)
 
 const content = Joi.string().min(1)
 
-const tag = Jois.string().alphanum().min(1).max(32)
+const tag = Joi.string().alphanum().min(1).max(32)
 
 const token = Joi.string().allow(null)
 

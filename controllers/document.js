@@ -2,7 +2,7 @@ import Joi, { ValidationError } from 'joi'
 import { Op } from 'sequelize'
 import _ from 'lodash'
 
-import { topic, tag, document, content } from '../constants/validation'
+import { topic, tag, content } from '../constants/validation'
 import Document from '../models/document'
 import { NoDocument, DocNotBelongToUser } from '../error'
 
