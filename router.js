@@ -14,7 +14,7 @@ import {
   passwordForgotten,
   passwordReset,
 } from './controllers/user'
-import { requiredUserLogin } from './middlewares/userAuth'
+import { requireUserLogin } from './middlewares/userAuth'
 
 const router = new Router()
 
@@ -26,7 +26,7 @@ router.post('/user/forgot_password', passwordForgotten)
 router.post('/user/reset_password/:token', passwordReset)
 
 // doc api
-router.post('/doc', requiredUserLogin, docCreate)
+router.post('/doc', requireUserLogin, docCreate)
 router.post('/doc/:id', requireUserLogin, docModify)
 router.delete('/doc/:id', requireUserLogin, docRemove)
 router.get('/doc/:id', requireUserLogin, docView)

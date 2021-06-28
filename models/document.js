@@ -1,6 +1,6 @@
-import { Model, DataTypes } from "sequelize";
-import sequelize from "./sequelize";
-import User from "./user";
+import { Model, DataTypes } from 'sequelize'
+import sequelize from './sequelize'
+import User from './user'
 
 class Document extends Model {}
 
@@ -22,16 +22,16 @@ Document.init(
   },
   {
     sequelize,
-    tableName: "knowledgebase",
+    tableName: 'knowledgebase',
     timestamps: true,
     uderscored: true,
   }
-);
+)
 
 Document.User = Document.belongsTo(User, {
   foreignKey: {
-    name: "userID",
-    field: "user_id",
-    allowNull: flase,
+    name: 'userID',
+    field: 'user_id',
+    allowNull: false,
   },
-});
+})

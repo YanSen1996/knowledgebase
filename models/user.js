@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "seuelize";
-import sequelize from "./sequelize";
+import { Model, DataTypes } from 'sequelize'
+import sequelize from './sequelize'
 
 class User extends Model {}
 
@@ -24,11 +24,11 @@ User.init(
   },
   {
     sequelize,
-    tableName: "user",
-    modelName: "user",
+    tableName: 'user',
+    modelName: 'user',
     timestamps: true,
     underscored: true,
   }
-);
+)
 
-export default User;
+export default User
