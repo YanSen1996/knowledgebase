@@ -10,7 +10,7 @@ const app = new Koa()
 
 // common middlewares
 
-app.use(logger()) // logger should be on the top
+app.use(logger())
 
 app.use(errorHandler) // try to catch errors
 

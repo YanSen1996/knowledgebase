@@ -4,7 +4,7 @@
   "description": "a knowledge base app for practice",
   "main": "index.js",
   "scripts": {
-    "dev": "babel-node index.js",
+    "dev": "DEBUG=\"knowledgebase:*\" babel-node index.js",
     "lint": "eslint --fix-dry-run .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

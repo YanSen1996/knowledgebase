@@ -21,7 +21,7 @@ const router = new Router()
 // user api
 router.post('/user/register', userRegister)
 router.post('/user/login', userLogIn)
-router.delete('/user/logout', requiredUserLogin, userLogOut)
+router.delete('/user/logout', requireUserLogin, userLogOut)
 router.post('/user/forgot_password', passwordForgotten)
 router.post('/user/reset_password/:token', passwordReset)
 

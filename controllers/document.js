@@ -6,17 +6,27 @@ import { topic, tag, content } from '../constants/validation'
 import Document from '../models/document'
 import { NoDocument, DocNotBelongToUser } from '../error'
 
+const docStructure = i => {
+  return {
+    id: i.id,
+    topic: i.topic,
+    content: i.content,
+    tags: i.tags,
+    createdAt: i.createdAt,
+  }
+}
+
 // docCreate handles document creation
 const docCreate = async (ctx, next) => {
   // 1. validation
+  const user = ctx.state.currentUser
   const { value, error } = await docSchema.validate(ctx.request.body)
   if (error instanceof ValidationError) {
     throw error
   }
 
   // 2. model creation
-  const user = ctx.state.currentUser
-  await Document.create({
+  const res = await Document.create({
     ...value,
     userId: user.id,
   })
@@ -24,6 +34,7 @@ const docCreate = async (ctx, next) => {
   // 3. response
   ctx.body = {
     message: 'OK',
+    data: docStructure(res),
   }
 }
 
@@ -36,11 +47,11 @@ const docModify = async (ctx, next) => {
   })
 
   if (doc == null) {
-    throw new NoTodoItem()
+    throw new NoDocument()
   }
 
   if (doc.userId !== user.id) {
-    throw new ItemNotBelongToUser()
+    throw new DocNotBelongToUser()
   }
 
   // 2. validate
@@ -50,13 +61,14 @@ const docModify = async (ctx, next) => {
   }
 
   // 3. modify document content
-  await Todo.update(value, {
+  await Document.update(value, {
     where: {
       id: doc.id,
     },
   })
   ctx.body = {
     messgae: 'OK',
+    data: docStructure(await Document.findOne({ where: { id: doc.id } })),
   }
 }
 
@@ -98,31 +110,25 @@ const docView = async (ctx, next) => {
     where: { id: ctx.params.id, deletedAt: { [Op.eq]: null } },
   })
 
-  if (item === null) {
+  if (doc === null) {
     throw new NoDocument()
   }
 
-  if (item.userId !== user.id) {
+  if (doc.userId !== user.id) {
     throw new DocNotBelongToUser()
   }
 
   // 2. provide document details
   ctx.body = {
     message: 'OK',
-    data: {
-      id: doc.id,
-      topic: doc.topic,
-      content: doc.content,
-      tags: doc.tags,
-      createdAt: doc.createdAt,
-    },
+    data: docStructure(doc),
   }
 }
 
 // docList lists all documents of current user
 const docList = async (ctx, next) => {
   const user = ctx.state.currentUser
-  const docs = await Todo.findAll({
+  const docs = await Document.findAll({
     where: { userId: user.id, deletedAt: { [Op.eq]: null } },
   })
   if (docs === null) {
@@ -133,22 +139,14 @@ const docList = async (ctx, next) => {
   } else {
     ctx.body = {
       message: 'OK',
-      data: _.map(docs, i => {
-        return {
-          id: i.id,
-          topic: i.topic,
-          content: i.content,
-          createdAt: i.createdAt,
-          tags: i.tags,
-        }
-      }),
+      data: _.map(docs, docStructure),
     }
   }
 }
 
 const docSchema = Joi.object({
   topic: topic.required(),
-  content: content,
+  content: content.required(),
   tags: Joi.array().items(tag).unique().required(),
 })
 

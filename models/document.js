@@ -19,19 +19,25 @@ Document.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     sequelize,
-    tableName: 'knowledgebase',
+    tableName: 'document',
     timestamps: true,
-    uderscored: true,
+    underscored: true,
   }
 )
 
 Document.User = Document.belongsTo(User, {
   foreignKey: {
-    name: 'userID',
+    name: 'userId',
     field: 'user_id',
     allowNull: false,
   },
 })
+
+export default Document
