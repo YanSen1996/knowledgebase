@@ -106,6 +106,7 @@ const userLogIn = async (ctx, next) => {
   ctx.body = {
     message: 'OK',
     data: jwt,
+    token: userTokenStr,
   }
 }
 

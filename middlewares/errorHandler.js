@@ -1,4 +1,4 @@
-import { ValidationError } from "joi";
+import { ValidationError } from 'joi'
 
 import {
   UserLogInEmailPasswordNotFound,
@@ -8,21 +8,21 @@ import {
   TokenExpiredError,
   InvalidAuthorizationHeader,
   EmailRegistered,
-} from "../error";
-import { middlewareDebugger as debug } from "../logger";
+} from '../error'
+import { middlewareDebugger as debug } from '../logger'
 
 const errorHandler = async (ctx, next) => {
   try {
-    await next();
+    await next()
   } catch (err) {
-    debug(err.message);
+    debug(err.message)
     switch (err.constructor) {
       case DocNotBelongToUser:
-        ctx.status = 401;
+        ctx.status = 401
         ctx.body = {
           message: err.message,
-        };
-        break;
+        }
+        break
       case TokenExpiredError:
       case InvalidAuthorizationHeader:
       case ValidationError:
@@ -30,18 +30,18 @@ const errorHandler = async (ctx, next) => {
       case UserAlreadyLoggedIn:
       case EmailRegistered:
       case UserLogInEmailPasswordNotFound:
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: err.message,
-        };
-        break;
+        }
+        break
       default:
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
-          message: "Error",
-        };
+          message: 'Error',
+        }
     }
   }
-};
+}
 
-export { errorHandler };
+export { errorHandler }
